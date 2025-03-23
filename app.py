@@ -38,7 +38,7 @@ def extract_contact_info(text):
             name = line.title()
             break
         if i < len(lines) - 1:
-            # Search for email or phone in the next line
+            
             email_in_next_line = re.search(r'[\w\.-]+@[\w\.-]+', lines[i + 1]) if email else None
             phone_in_next_line = re.search(r'\b\d{3}[-.]?\d{3}[-.]?\d{4}\b', lines[i + 1]) if phone else None
             if (email_in_next_line or phone_in_next_line) and re.match(r'^[A-Za-z]+ [A-Za-z]+$', line):
@@ -92,22 +92,22 @@ def save_as_pdf(text, filename, name="Your Name", email="email@example.com", pho
         else:
             sections["Projects"].append(line)
 
-    # Build the PDF with bullet points instead of tables
+    
     for section, content in sections.items():
         if content:
-            # Add section heading
+          
             story.append(Paragraph(section, section_style))
             
-            # Add each item as a bullet point
+           
             for item in content:
-                # If the item already starts with a bullet, use it as is; otherwise, add a bullet
+               
                 if item.startswith('•') or item.startswith('-'):
                     bullet_text = item
                 else:
                     bullet_text = f"• {item}"
                 story.append(Paragraph(bullet_text, body_style))
             
-            # Add spacing after each section
+            
             story.append(Spacer(1, 12))
 
     doc.build(story)
